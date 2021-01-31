@@ -1,0 +1,20 @@
+{
+  "name": "primeiro-projeto-node",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "dev:server": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules src/server.ts"
+  },
+  "dependencies": {
+    "date-fns": "^2.16.1",
+    "express": "^4.17.1",
+    "uuidv4": "^6.2.6"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.11",
+    "ts-node-dev": "^1.1.1",
+    "typescript": "^4.1.3"
+  }
+}
