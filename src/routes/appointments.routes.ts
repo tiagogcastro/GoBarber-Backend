@@ -1,29 +1,29 @@
 import { Router } from 'express';
 import { parseISO } from 'date-fns';
+import { getCustomRepository } from 'typeorm';
 
 import AppointmentsRepository from '../repositories/AppointmentsRepository';
 import CreateAppointmentService from '../services/CreateAppointmentService';
 
 const appointmentsRouter = Router();
-const appointmentsRepository = new AppointmentsRepository();
 
-appointmentsRouter.get('/', (request, response) => {
-  const appointments = appointmentsRepository.all();
+appointmentsRouter.get('/', async (request, response) => {
+  const appointmentsRepository = getCustomRepository(AppointmentsRepository);
+  const appointments = await appointmentsRepository.find();
 
   return response.json(appointments);
 })
 
-appointmentsRouter.post('/', (request, response) => {
+appointmentsRouter.post('/', async (request, response) => {
   try {
     const {provider, date} = request.body;
 
     // parseIso só esta transformando o dado
     const parsedDate = parseISO(date)
 
-    // Recebe o mesmo parâmetro do constructor
-    const createAppointmentService = new CreateAppointmentService(appointmentsRepository)
+    const createAppointmentService = new CreateAppointmentService()
 
-    const appointment = createAppointmentService.execute({
+    const appointment = await createAppointmentService.execute({
       date: parsedDate, 
       provider
     });
