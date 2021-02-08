@@ -22,7 +22,7 @@
   <p>
     Este é um dos módulos do Gostack, que tem como objetivo passar conhecimentos de NodeJs e Typescript, pois é desenvolvido uma api para cadastros de usuários e prestadores de serviços. 
   </p>
-  <img src="./imageREADME/projectInsominia.png" alt="Imagem mostrando o insomnia" width="500">
+  <img align="center" src="./imagesREADME/projectInsominia.png" alt="Imagem mostrando o insomnia" width="600">
 </div>
 
 </br>
