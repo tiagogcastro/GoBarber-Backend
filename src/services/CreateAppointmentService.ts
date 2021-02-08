@@ -3,17 +3,12 @@ import { getCustomRepository } from 'typeorm';
 import Appointment from '../models/Appointment';
 import AppointmentsRepository from '../repositories/AppointmentsRepository';
 
-/**
- * [x] Recebimento das informações
- * [x] Tratativa de erros/excessões
- * [x] Acesso ao repositório
-*/
+import AppError from '../errors/AppError';
 
 interface RequestDTO {
   provider_id: string;
   date: Date;
 }
-
 // executando a criação de um Appointment
 class CreateAppointmentService {
   public async execute({provider_id, date}: RequestDTO): Promise<Appointment> {
@@ -25,7 +20,7 @@ class CreateAppointmentService {
     const findAppointmentInSameDate = await appointmentsRepository.findByDate(appointmentDate);
 
     if(findAppointmentInSameDate) {
-      throw Error("This appointment is already booked.")
+      throw new AppError("This appointment is already booked.")
     }
 
     const appointment = appointmentsRepository.create({
