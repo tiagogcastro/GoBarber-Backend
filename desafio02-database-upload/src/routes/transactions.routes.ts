@@ -40,7 +40,6 @@ transactionsRouter.post('/', async (request, response) => {
 
 transactionsRouter.delete('/:id', async (request, response) => {
   const { id } = request.params;
-  console.log(id);
 
   const deleteTransaction = new DeleteTransactionService();
 
@@ -49,13 +48,12 @@ transactionsRouter.delete('/:id', async (request, response) => {
   return response.status(204).send();
 });
 
-transactionsRouter.post(
-  '/import',
-  upload.single('file'),
+transactionsRouter.post('/import', upload.single('file'),
   async (request, response) => {
     const importTransactions = new ImportTransactionsService();
 
-    const transactions = await importTransactions.execute(request.file.path);
+    const filePath = request.file.path;
+    const transactions = await importTransactions.execute(filePath);
 
     return response.json(transactions);
   },
