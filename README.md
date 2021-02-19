@@ -20,7 +20,7 @@
 <div align="left">
   <h1 id="sobre-o-projeto"> ✅ Sobre o projeto </h1>
   <p>
-    Este é um dos módulos do Gostack, que tem como objetivo passar conhecimentos de NodeJs e Typescript, pois é desenvolvido uma api para cadastros de usuários e prestadores de serviços. 
+    Este é um dos módulos do Gostack, que tem como objetivo passar conhecimentos de NodeJs e Typescript, pois aqui começa ser desenvolvida a API para o projeto GoBarber. 
   </p>
   <div align="center">
     <img src="./imagesREADME/projectInsominia.png" alt="Imagem mostrando o insomnia" width="500">
