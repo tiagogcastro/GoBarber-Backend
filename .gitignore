@@ -1,8 +1,0 @@
-node_modules
-.vscode
-.vscode/
-build/
-temp/
-
-tmp/*
-!tmp/.gitkeep
