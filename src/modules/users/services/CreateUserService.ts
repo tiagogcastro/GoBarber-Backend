@@ -4,7 +4,7 @@ import User from '@modules/users/infra/typeorm/entities/User';
 
 import AppError from '@shared/errors/AppError';
 
-import IUsersRepository from '../infra/typeorm/repositories/UsersRepository';
+import IUsersRepository from '../repositories/IUsersRepository';
 
 interface IRequest {
   name: string;
