@@ -4,13 +4,18 @@ import FakeUsersRepository from '../repositories/fakes/FakeUsersRepository';
 import FakeStorageProvider from '@shared/container/providers/StorageProvider/fakes/FakeStorageProvider';
 import UpdateUserAvatarService from './UpdateUserAvatarService';
 
+let fakeUsersRepository: FakeUsersRepository;
+let fakeStorageProvider: FakeStorageProvider;
+let updateUserAvatar: UpdateUserAvatarService;
 describe('UpdateUserAvatar', () => {
+  beforeEach(() => {
+    fakeUsersRepository = new FakeUsersRepository();
+    fakeStorageProvider = new FakeStorageProvider();
+
+    updateUserAvatar = new UpdateUserAvatarService(fakeUsersRepository, fakeStorageProvider);
+  });
+  
   it('Should be able to create a new user', async () => {
-    const fakeUsersRepository = new FakeUsersRepository();
-    const fakeStorageProvider = new FakeStorageProvider();
-
-    const updateUserAvatar = new UpdateUserAvatarService(fakeUsersRepository, fakeStorageProvider);
-
     const user = await fakeUsersRepository.create({
       name: 'John Doe',
       email: 'teste@example.com',
@@ -26,11 +31,6 @@ describe('UpdateUserAvatar', () => {
   });
 
   it('Should be able to update avatar from non existing user', async () => {
-    const fakeUsersRepository = new FakeUsersRepository();
-    const fakeStorageProvider = new FakeStorageProvider();
-
-    const updateUserAvatar = new UpdateUserAvatarService(fakeUsersRepository, fakeStorageProvider);
-
     await expect(updateUserAvatar.execute({
       user_id: 'non-existing-user',
       avatarFilename: 'avatar.jpg',
@@ -38,12 +38,7 @@ describe('UpdateUserAvatar', () => {
   });
 
   it('Should delete old avatar when updating new one', async () => {
-    const fakeUsersRepository = new FakeUsersRepository();
-    const fakeStorageProvider = new FakeStorageProvider();
-
     const deleteFile = jest.spyOn(fakeStorageProvider, 'deleteFile');
-
-    const updateUserAvatar = new UpdateUserAvatarService(fakeUsersRepository, fakeStorageProvider);
 
     const user = await fakeUsersRepository.create({
       name: 'John Doe',
