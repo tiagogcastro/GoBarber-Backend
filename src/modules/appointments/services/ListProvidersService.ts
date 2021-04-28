@@ -17,14 +17,9 @@ export default class ListProvidersService {
   ) {}
   
   public async execute({ user_id }: IRequest): Promise<User[]> {
-
     const user = await this.usersRepository.findAllProviders({
       except_user_id: user_id,
     });
-
-    if(!user) {
-      throw new AppError('Você precisa está logado para listar', 401);
-    }
 
     return user;
   }
