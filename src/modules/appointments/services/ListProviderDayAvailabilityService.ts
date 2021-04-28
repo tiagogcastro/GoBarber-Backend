@@ -5,6 +5,7 @@ import User from '@modules/users/infra/typeorm/entities/User';
 import AppError from '@shared/errors/AppError';
 import IAppointmentsRepository from '../repositories/IAppointmentsRepository';
 import { getHours } from 'date-fns';
+import isAfter from 'date-fns/isAfter';
 
 interface IRequest {
   provider_id: string;
@@ -39,14 +40,20 @@ export default class ListProviderDayAvailabilityService {
       {length: 10},
       (value, index) => index + hourStart,
     );
-
+    
+    const currentDate = new Date(Date.now());
+    
     const availability = eachHourArray.map(hour => {
       const hasAppointmentInHour = appointments.find(appointment => (
         getHours(appointment.date) === hour
       ));
+
+      // 2021-05-20 08:00:00
+      const compareDate = new Date(year, month -1, day, hour);
+      
       return {
         hour,
-        available: !hasAppointmentInHour,
+        available: !hasAppointmentInHour && isAfter(compareDate, currentDate),
       };
     });
 
