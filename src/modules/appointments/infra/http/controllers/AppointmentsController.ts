@@ -7,6 +7,7 @@ import CreateAppointmentService from '@modules/appointments/services/CreateAppoi
 
 export default class AppointmentsController {
   public async create(request: Request, response: Response): Promise<Response> {
+    const user_id = request.user.id;
     const {provider_id, date} = request.body;
 
     // parseIso só esta transformando o dado
@@ -16,7 +17,8 @@ export default class AppointmentsController {
   
     const appointment = await createAppointmentService.execute({
       date: parsedDate, 
-      provider_id
+      provider_id,
+      user_id
     });
   
     return response.json(appointment);
